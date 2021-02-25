@@ -13,7 +13,7 @@ class Story {
    */
 
   constructor({ storyId, title, author, url, username, createdAt }) {
-    this.storyId = storyId;
+    this.storyId = storyId; //{storyId: this.storyId
     this.title = title;
     this.author = author;
     this.url = url;
@@ -73,10 +73,31 @@ class StoryList {
    * Returns the new Story instance
    */
 
-  async addStory( /* user, newStory */) {
+  async addStory(user, story) {
+    let {title, author, url} = story;
+    const token = user.loginToken;
+    //TODO: define token
+    // const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImthdGhyaW4iLCJpYXQiOjE2MTQyNzY5Mjh9.-5hM3YkUg6Ttkri-BViUUbvcz-KIMQoI0Zlxh9m1QdI"
     // UNIMPLEMENTED: complete this function!
+    let myStory = await axios.post(`https://hack-or-snooze-v3.herokuapp.com/stories`, {
+        story: {
+          title: title,
+          author: author,
+          url: url
+        },
+        token
+    }, )
+
+    const storyObj = myStory.data;
+    
+    let newStory = new Story(storyObj.story)
+    this.stories.push(newStory);
+    
+    return newStory;
+    
   }
 }
+
 
 
 /******************************************************************************
