@@ -10,9 +10,8 @@ class Story {
   /** Make instance of Story from data object about story:
    *   - {title, author, url, username, storyId, createdAt}
    */
-
   constructor({ storyId, title, author, url, username, createdAt }) {
-    this.storyId = storyId; //{storyId: this.storyId
+    this.storyId = storyId; 
     this.title = title;
     this.author = author;
     this.url = url;
@@ -27,6 +26,7 @@ class Story {
     // UNIMPLEMENTED: complete this function!
     return "hostname.com";
   }
+
 }
 
 /******************************************************************************
@@ -83,6 +83,7 @@ class StoryList {
     const storyObj = myStory.data;
     let newStory = new Story(storyObj.story);
     this.stories.unshift(newStory);
+    console.log(newStory)
     return newStory;
   }
 }
@@ -96,7 +97,6 @@ class User {
    *   - {username, name, createdAt, favorites[], ownStories[]}
    *   - token
    */
-
   constructor(
     { username, name, createdAt, favorites = [], ownStories = [] },
     token
@@ -108,6 +108,11 @@ class User {
     // instantiate Story instances for the user's favorites and ownStories
     this.favorites = favorites.map((s) => new Story(s));
     this.ownStories = ownStories.map((s) => new Story(s));
+
+     //makes the user's story instance to favorite = true
+     this.favorites.forEach(favoriteStory => {
+      favoriteStory.favorite = true;
+    })
 
     // store the login token on the user so it's easy to find for API calls.
     this.loginToken = token;
@@ -195,9 +200,11 @@ class User {
       return null;
     }
   }
+
+  //TODO(taken from handout instructions): add 2 methods, letting the user favorite or un-favorite a story
+  static async addFavorites(story){
+    let newFavorite = await axios.post(`${BASE_URL}/users/${this.username}/favorites/${story.storyId}`, {story});
+    console.log(newFavorite.data)
+  }
+
 }
-
-//make a function that when star is toggled, add that story to favorites, change this.favorites to true
-
-
-
