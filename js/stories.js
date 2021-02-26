@@ -76,26 +76,18 @@ async function submitNewStory() {
 
  $('#all-stories-list').on('click', 'i', async function(e) {
   //  e.preventDefault()
-    $(e.target).toggleClass('icon-color-red')
-
-    if($(e.target).hasClass('icon-color-red')) {
-      const faveId = $(e.target).parent().attr('id')
-      const storyArr = storyList.stories
-      for (let story of storyArr) {
-        if (faveId === story.storyId) {
-          await currentUser.addFavorites(story)
-        }
-      }
+  const faveId = $(e.target).parent().attr('id')
+  const storyArr = storyList.stories
+  let currentStory;
+  for (let story of storyArr){
+    if (faveId === story.storyId) {
+      currentStory = story;
     }
- 
-   if($(e.target).hasClass('icon-color-gray')) {
-    const unFaveId = $(e.target).parent().attr('id')
-    const storyArr = storyList.stories
-      for (let story of storyArr) {
-        if (unFaveId === story.storyId) {
-        await currentUser.deleteFavorite(story)
-       
-        }
-      }
-   }
-  })
+  }
+  if(!($(e.target).hasClass('icon-color-red'))) {
+      await currentUser.addFavorites(currentStory)
+    } else {
+      await currentUser.deleteFavorite(currentStory)
+    }
+  $(e.target).toggleClass('icon-color-red')
+})

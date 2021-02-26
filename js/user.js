@@ -129,19 +129,7 @@ function checkForFavorites() {
       if (faveId === story.storyId){
         story.favorite = true;
         $(`#${story.storyId}`).find("i").addClass("icon-color-red");
-      } else {
-        story.favorite = false;
-        // $(`#${story.storyId}`).find("i").toggleClass("icon-color-red");
       }
     }
   }
 }
-  // for(let story of storiesArr){
-  //   console.log(story);
-  //   if(){
-  //     console.log(story);
-      
-  //   }
-  //     // story.closest("i").addClass("icon-color-red");
-  //   }
-  // }
