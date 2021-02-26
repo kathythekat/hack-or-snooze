@@ -18,6 +18,7 @@ class Story {
     this.url = url;
     this.username = username;
     this.createdAt = createdAt;
+    this.favorite = false;
   }
 
   /** Parses hostname out of URL and returns it. */
@@ -195,3 +196,8 @@ class User {
     }
   }
 }
+
+//make a function that when star is toggled, add that story to favorites, change this.favorites to true
+
+
+
