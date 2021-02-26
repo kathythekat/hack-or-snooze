@@ -95,7 +95,6 @@ function saveUserCredentialsInLocalStorage() {
     localStorage.setItem("username", currentUser.username);
   }
 }
-
 /******************************************************************************
  * General UI stuff about users
  */
@@ -112,7 +111,37 @@ function updateUIOnUserLogin() {
 
   $allStoriesList.show();
   $loginForm.hide();
-  $signupForm.hide()
+  $signupForm.hide();
+  $(".far").show();
+  checkForFavorites();
 
   updateNavOnLogin();
 }
+
+function checkForFavorites() {
+  let favorites = currentUser.favorites;
+  console.log(favorites);
+  let storiesArr = storyList.stories;
+  console.log(storiesArr);
+  for (let fave of favorites){
+    let faveId = fave.storyId;
+    for (let story of storiesArr){
+      if (faveId === story.storyId){
+        story.favorite = true;
+        $(`#${story.storyId}`).find("i").addClass("icon-color-red");
+      } else {
+        story.favorite = false;
+        // $(`#${story.storyId}`).find("i").toggleClass("icon-color-red");
+      }
+    }
+  }
+}
+  // for(let story of storiesArr){
+  //   console.log(story);
+  //   if(){
+  //     console.log(story);
+      
+  //   }
+  //     // story.closest("i").addClass("icon-color-red");
+  //   }
+  // }
