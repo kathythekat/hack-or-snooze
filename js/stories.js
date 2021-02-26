@@ -8,7 +8,6 @@ let storyList;
 async function getAndShowStoriesOnStart() {
   storyList = await StoryList.getStories();
   $storiesLoadingMsg.remove();
-
   putStoriesOnPage();
 }
 
@@ -63,12 +62,14 @@ async function submitNewStory() {
   }
   console.log(storyObj);
   await storyList.addStory(currentUser, storyObj);
+  putStoriesOnPage();
 }
 
- $("#form-submit-btn").on("click", async function(e){
+ $storyForm.on("submit", async function(e){
   e.preventDefault();
   await submitNewStory();
   $("#author").val("");
   $("#title").val("");
   $("#storyUrl").val("");
+  $storyForm.hide();
  });
