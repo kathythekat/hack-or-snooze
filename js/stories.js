@@ -24,6 +24,7 @@ function generateStoryMarkup(story) {
   const hostName = story.getHostName();
   return $(`
       <li id="${story.storyId}">
+        <i class="far fa-star icon-color-gray"></i>
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
         </a>
@@ -73,3 +74,32 @@ async function submitNewStory() {
   $("#storyUrl").val("");
   $storyForm.hide();
  });
+
+
+ $('#all-stories-list').on('click', 'i', async function(e) {
+   e.preventDefault()
+    $(e.target).toggleClass('icon-color-red', 'icon-color-gray')
+
+    if($(e.target).hasClass('icon-color-red')) {
+      const faveId = $(e.target).parent().attr('id')
+      const storyArr = storyList.stories
+      for (let story of storyArr) {
+        if (faveId === story.storyId) {
+          await currentUser.addFavorites(story)
+          return currentUser.favorites
+        }
+      }
+    }
+ 
+   if($(e.target).hasClass('icon-color-gray')) {
+    const unFaveId = $(e.target).parent().attr('id')
+    const storyArr = storyList.stories
+      for (let story of storyArr) {
+        if (unFaveId === story.storyId) {
+        await currentUser.deleteFavorite(story)
+        return currentUser.favorites;
+       
+        }
+      }
+   }
+  })

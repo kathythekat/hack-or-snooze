@@ -202,9 +202,31 @@ class User {
   }
 
   //TODO(taken from handout instructions): add 2 methods, letting the user favorite or un-favorite a story
-  static async addFavorites(story){
-    let newFavorite = await axios.post(`${BASE_URL}/users/${this.username}/favorites/${story.storyId}`, {story});
-    console.log(newFavorite.data)
+  async addFavorites(story){
+    const token = this.loginToken;
+    let newFavorite = await axios.post(`${BASE_URL}/users/${this.username}/favorites/${story.storyId}`,
+     {story, token});
+
+    let faveArr = this.favorites;
+     for (let i = 0; i < faveArr.length; i++) {
+      if (story.storyId === faveArr[i].storyId) {
+        faveArr.push(story)
+      }
+    }
   }
 
+  async deleteFavorite(story) {
+    const token = this.loginToken;
+  
+    let deletedFavorite = await axios.delete(`${BASE_URL}/users/${this.username}/favorites/${story.storyId}`,
+    {data: {token}}
+    );
+
+    let faveArr = this.favorites;
+    for (let i = 0; i < faveArr.length; i++) {
+      if (story.storyId === faveArr[i].storyId) {
+        faveArr.splice(i, 1)
+      }
+    }
+  }
 }
