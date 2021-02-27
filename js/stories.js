@@ -49,6 +49,9 @@ function putStoriesOnPage() {
   }
 
   $allStoriesList.show();
+  $(".far").show();
+  checkForFavorites()
+  
 }
 
 
@@ -90,4 +93,25 @@ async function submitNewStory() {
       await currentUser.deleteFavorite(currentStory)
     }
   $(e.target).toggleClass('icon-color-red')
+})
+
+
+$navFaves.on('click', function(e) {
+  e.preventDefault()
+  let storyArr = storyList.stories;
+  for (let story of storyArr) {
+    if(story.favorite === false) {
+      $(`#${story.storyId}`).hide()
+    }
+  }
+})
+
+$navMySubmits.on('click', function(e) {
+  e.preventDefault()
+  let storyArr = storyList.stories;
+  for (let story of storyArr) {
+    if(story.username !== currentUser.username) {
+      $(`#${story.storyId}`).hide()
+    }
+  }
 })

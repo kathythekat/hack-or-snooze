@@ -112,14 +112,23 @@ function updateUIOnUserLogin() {
   $allStoriesList.show();
   $loginForm.hide();
   $signupForm.hide();
-  $(".far").show();
+  $navFaves.show()
+
+  $starIcons.show()
+  $navMySubmits.show()
+  // $(".far").show();
   checkForFavorites();
 
   updateNavOnLogin();
 }
 
 function checkForFavorites() {
-  let favorites = currentUser.favorites;
+  let favorites;
+  if(currentUser) {
+    favorites = currentUser.favorites;
+  } else {
+    favorites = [];
+  }
   console.log(favorites);
   let storiesArr = storyList.stories;
   console.log(storiesArr);

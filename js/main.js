@@ -16,6 +16,8 @@ const $navLogOut = $("#nav-logout");
 const $navSubmit = $("#nav-submit");
 const $storyForm = $("#story-form");
 const $starIcons = $(".far");
+const $navFaves = $('#nav-favorites')
+const $navMySubmits = $('#nav-mysubmit')
 
 
 /** To make it easier for individual components to show just themselves, this
@@ -29,8 +31,9 @@ function hidePageComponents() {
     $loginForm,
     $signupForm,
     $storyForm,
-    $navSubmit,
+    // $navSubmit,
     $navLogin,
+    // $navFaves
   ];
   components.forEach(c => c.hide());
 }
